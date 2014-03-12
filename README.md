@@ -9,7 +9,8 @@ The first pass pretty prints out the bytecode, while the second removes any triv
 
 Directory Structure:
 ================
-+ build (llvm build directory)
+.
++-- build (llvm build directory)
 | + Debug+Asserts
 | | + bin (llvm and clang executables)
 + llvm (llvm source root)
