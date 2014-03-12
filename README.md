@@ -9,14 +9,15 @@ The first pass pretty prints out the bytecode, while the second removes any triv
 
 Directory Structure:
 ================
-.
-+-- build (llvm build directory)
+<pre>
++ build (llvm build directory)
 | + Debug+Asserts
 | | + bin (llvm and clang executables)
 + llvm (llvm source root)
 | + cs565
 | | + lib (source files for passes)
 | | + tests (test files for passes)
+</pre>
 
 Install Instructions:
 ================
