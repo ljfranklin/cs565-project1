@@ -1,6 +1,6 @@
-#### cs565-project1
-#### USC CSCI565 - Spring 2014
-#### Lyle Franklin
+##### cs565-project1
+##### USC CSCI565 - Spring 2014
+##### Lyle Franklin
 
 Description:
 ================
@@ -20,25 +20,25 @@ Directory Structure:
 Install Instructions:
 ================
 ######install subversion if not already installed
-sudo apt-get install subversion
+	sudo apt-get install subversion
 
 ######checkout llvm
-svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm
+	svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm
 
 ######checkout clang
-cd llvm/tools
-svn co http://llvm.org/svn/llvm-project/cfe/trunk clang
-cd ../..
+	cd llvm/tools
+	svn co http://llvm.org/svn/llvm-project/cfe/trunk clang
+	cd ../..
 
 ######checkout clang extra (might not be necessary)
-cd llvm/tools/clang/tools
-svn co http://llvm.org/svn/llvm-project/clang-tools-extra/trunk extra
-cd ../../../..
+	cd llvm/tools/clang/tools
+	svn co http://llvm.org/svn/llvm-project/clang-tools-extra/trunk extra
+	cd ../../../..
 
 ######checkout Compiler-RT
-cd llvm/projects
-svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt
-cd ../..
+	cd llvm/projects
+	svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt
+	cd ../..
 
 ######build everything
 	mkdir build
@@ -48,19 +48,19 @@ cd ../..
 	cd ..
 
 ######build custom passes
-cd llvm/cs565/tests
-make
-cd ../lib
-make
+	cd llvm/cs565/tests
+	make
+	cd ../lib
+	make
 
 ######run prettyPrint on test1
-make testPrint
+	make testPrint
 
 ######run prettyPrint on test2
-make testPrint2
+	make testPrint2
 
 ######run prettyPrint on test3
-make testPrint3
+	make testPrint3
 
 ######run naive unreachable block removal pass on test2
-make testNaive
+	make testNaive
