@@ -41,11 +41,11 @@ svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt
 cd ../..
 
 ######build everything
-mkdir build
-cd build
-../llvm/configure
-make //takes a long time, 1-2 hours
-cd ..
+	mkdir build
+	cd build
+	../llvm/configure
+	make //takes a long time, 1-2 hours
+	cd ..
 
 ######build custom passes
 cd llvm/cs565/tests
