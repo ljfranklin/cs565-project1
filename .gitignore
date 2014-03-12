@@ -16,3 +16,18 @@
 *.exe
 *.out
 *.app
+
+#gedit backup files
+*~
+
+#llvm build
+build/
+
+#llvm src
+llvm/
+!llvm/cs565/
+
+#llvm build files
+*.ll
+*.bc
+*.s
