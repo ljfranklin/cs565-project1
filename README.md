@@ -1,12 +1,14 @@
 cs565-project1
 USC CSCI565 - Spring 2014
 Lyle Franklin
-==============
+
+Description:
+================
 This project contains a couple LLVM pass to get familiar with the LLVM infrastructure.
 The first pass pretty prints out the bytecode, while the second removes any trivially unreachable blocks from the bytecode.
-==============
-Directory Structure:
 
+Directory Structure:
+================
 + build (llvm build directory)
 | + Debug+Asserts
 | | + bin (llvm and clang executables)
@@ -14,9 +16,9 @@ Directory Structure:
 | + cs565
 | | + lib (source files for passes)
 | | + tests (test files for passes)
-==============
-Install Instructions:
 
+Install Instructions:
+================
 #install subversion if not already installed
 sudo apt-get install subversion
 
