@@ -49,6 +49,9 @@ Install Instructions:
 	make //takes a long time, 1-2 hours
 	cd ..
 
+######copy custom passes
+	//unzip project.zip into project root directory
+
 ######build custom passes
 	cd llvm/cs565/tests
 	make
