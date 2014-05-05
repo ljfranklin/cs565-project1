@@ -21,4 +21,13 @@ namespace cs565 {
 		
 		virtual void getAnalysisUsage(AnalysisUsage &Info) const;
 	};
+	
+	struct LiveVariables : public FunctionPass {
+		static char ID;
+		LiveVariables() : FunctionPass(ID) {}
+		
+		virtual bool runOnFunction(Function &F);
+		
+		virtual void getAnalysisUsage(AnalysisUsage &Info) const;
+	};
 }
