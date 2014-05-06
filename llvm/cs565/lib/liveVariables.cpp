@@ -106,7 +106,15 @@ namespace cs565 {
     		}
     		*/
     		
-    		errs() << "\nOUT:\n";
+    		errs() << "IN:\n";
+    		for (std::set<std::string>::iterator o = inMap[currentBlock].begin(), oEnd = inMap[currentBlock].end(); o != oEnd; o++) {
+				errs() << "  " << *o << "\n";
+    		}
+    		if (inMap[currentBlock].size() == 0) {
+    			errs() << "  None\n";
+    		}
+    		
+    		errs() << "OUT:\n";
     		for (std::set<std::string>::iterator o = outMap[currentBlock].begin(), oEnd = outMap[currentBlock].end(); o != oEnd; o++) {
 				errs() << "  " << *o << "\n";
     		}
