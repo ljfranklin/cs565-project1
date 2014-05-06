@@ -23,15 +23,30 @@ namespace cs565 {
     		//iterate from last instruction to first in BB
     		for (BasicBlock::reverse_iterator inst = currentBlock->rbegin(), instEnd = currentBlock->rend(); inst != instEnd; inst++) {
 				
+				Instruction* in = &*inst;
+				
 				//save definitions
 				if (inst->hasName()) {
 					def.insert(inst->getName());
 					use.erase(inst->getName());
+				} else if (StoreInst *store = dyn_cast<StoreInst>(in)) {
+					std::string name = store->getPointerOperand()->getName();
+					def.insert(name);
+					use.erase(name);
 				}
 				
 				//loop over operations to get variable uses
 				for(Instruction::op_iterator op = inst->op_begin(), ope = inst->op_end(); op != ope; op++) {
-					if (dyn_cast<Instruction>(*op) || dyn_cast<Argument>(*op)) {
+				
+					bool isInstruction = (dyn_cast<Instruction>(*op) || dyn_cast<Argument>(*op));
+					
+					//don't count store pointers as a use
+					bool isStorePointer = false;
+					if (StoreInst *store = dyn_cast<StoreInst>(in)) {
+						isStorePointer = (op->get()->getName() == store->getPointerOperand()->getName());
+					}
+				
+					if (isInstruction && isStorePointer == false) {
 						Value* define = op->get();
 						use.insert(define->getName());
 					}
@@ -95,7 +110,7 @@ namespace cs565 {
 				errs() << *inst << "\n";
     		}
     		
-    		/*
+    		
     		errs() << " USE \n";
     		for (std::set<std::string>::iterator use = useMap[currentBlock].begin(), useEnd = useMap[currentBlock].end(); use != useEnd; use++) {
 				errs() << "\t" << *use << "\n";
@@ -105,7 +120,7 @@ namespace cs565 {
     		for (std::set<std::string>::iterator def = defMap[currentBlock].begin(), defEnd = defMap[currentBlock].end(); def != defEnd; def++) {
 				errs() << "\t" << *def << "\n";
     		}
-    		*/
+    		
     		
     		errs() << "IN:\n";
     		for (std::set<std::string>::iterator o = inMap[currentBlock].begin(), oEnd = inMap[currentBlock].end(); o != oEnd; o++) {
