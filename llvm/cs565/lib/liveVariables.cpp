@@ -110,7 +110,7 @@ namespace cs565 {
 				errs() << *inst << "\n";
     		}
     		
-    		
+    		/*
     		errs() << " USE \n";
     		for (std::set<std::string>::iterator use = useMap[currentBlock].begin(), useEnd = useMap[currentBlock].end(); use != useEnd; use++) {
 				errs() << "\t" << *use << "\n";
@@ -120,7 +120,7 @@ namespace cs565 {
     		for (std::set<std::string>::iterator def = defMap[currentBlock].begin(), defEnd = defMap[currentBlock].end(); def != defEnd; def++) {
 				errs() << "\t" << *def << "\n";
     		}
-    		
+    		*/
     		
     		errs() << "IN:\n";
     		for (std::set<std::string>::iterator o = inMap[currentBlock].begin(), oEnd = inMap[currentBlock].end(); o != oEnd; o++) {
