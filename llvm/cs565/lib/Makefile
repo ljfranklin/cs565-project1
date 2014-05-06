@@ -36,4 +36,4 @@ testNaive:
 	$(TEST_PRINT) ../tests/test2.opt.bc > /dev/null 
 	
 testLive:
-	$(TEST_LIVE) ../tests/test4.bc > /dev/null
+	$(TEST_LIVE) ../tests/$(file).bc > /dev/null
