@@ -25,9 +25,8 @@ build/
 
 #llvm src
 llvm/
-!llvm/cs565/*
-!llvm/cs565/*/*
-!llvm/cs565/*/*/*
+!llvm/cs565/lib/*
+!llvm/cs565/tests/*
 
 #llvm build files
 *.ll

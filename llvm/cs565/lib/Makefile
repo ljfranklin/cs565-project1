@@ -16,7 +16,7 @@ LIB_EXT = .so
 
 TEST_PRINT = $(LEVEL)/../build/Debug+Asserts/bin/opt -load $(LEVEL)/Debug+Asserts/lib/$(LIBRARYNAME)$(LIB_EXT) -prettyPrint <
 TEST_NAIVE = $(LEVEL)/../build/Debug+Asserts/bin/opt -load $(LEVEL)/Debug+Asserts/lib/$(LIBRARYNAME)$(LIB_EXT) -cfgNaive <
-TEST_LIVE = $(LEVEL)/../build/Debug+Asserts/bin/opt -load $(LEVEL)/Debug+Asserts/lib/$(LIBRARYNAME)$(LIB_EXT) -liveVariables <
+TEST_LIVE = $(LEVEL)/../build/Debug+Asserts/bin/opt -load $(LEVEL)/Debug+Asserts/lib/$(LIBRARYNAME)$(LIB_EXT) -instnamer -liveVariables <
 
 # Include the makefile implementation stuff
 include $(LEVEL)/Makefile.common

@@ -17,11 +17,45 @@ namespace cs565 {
     	std::map<BasicBlock*, std::set<std::string>> useMap;
     	std::map<BasicBlock*, std::set<std::string>> defMap;
     	for (Function::iterator currentBlock = F.begin(), endBlock = F.end(); currentBlock != endBlock; currentBlock++) {
+    		
+    		std::set<std::string> use;
+    		std::set<std::string> def;	
+    		
+    		for (BasicBlock::reverse_iterator inst = currentBlock->rbegin(), instEnd = currentBlock->rend(); inst != instEnd; inst++) {
+				
+				if (inst->hasName()) {
+					def.insert(inst->getName());
+					use.erase(inst->getName());
+				}
+				
+				for(Instruction::op_iterator op = inst->op_begin(), ope = inst->op_end(); op != ope; op++) {
+					if(dyn_cast<Instruction>(*op) || dyn_cast<Argument>(*op)) {
+						Value* def = op->get();
+						use.insert(def->getName());
+					}
+				}
+    		}
+    		
+    		useMap[currentBlock] = use;
+    		defMap[currentBlock] = def;
+    	}
+    	
+    	for (Function::iterator currentBlock = F.begin(), endBlock = F.end(); currentBlock != endBlock; currentBlock++) {
     			
     		errs() << "\nBASIC BLOCK " << currentBlock->getName() << "\n";
-    			
-    		for (BasicBlock::reverse_iterator inst = currentBlock->rbegin(), instEnd = currentBlock->rend(); inst != instEnd; inst++) {
+    		
+    		for (BasicBlock::iterator inst = currentBlock->begin(), instEnd = currentBlock->end(); inst != instEnd; inst++) {
 				errs() << *inst << "\n";
+    		}
+    		
+    		errs() << " USE \n";
+    		for (std::set<std::string>::iterator use = useMap[currentBlock].begin(), useEnd = useMap[currentBlock].end(); use != useEnd; use++) {
+				errs() << "\t" << *use << "\n";
+    		}
+    		
+    		errs() << " DEF \n";
+    		for (std::set<std::string>::iterator def = defMap[currentBlock].begin(), defEnd = defMap[currentBlock].end(); def != defEnd; def++) {
+				errs() << "\t" << *def << "\n";
     		}
     	}
     
