@@ -69,3 +69,6 @@ Install Instructions:
 
 ######run naive unreachable block removal pass on test2
 	make testNaive
+	
+######run live variable pass on a given file in the tests dir
+	make testLive file=test4
