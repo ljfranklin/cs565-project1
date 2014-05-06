@@ -1,6 +1,4 @@
 #include "passes.h"
-#include "llvm/ADT/DepthFirstIterator.h"
-#include "llvm/ADT/SmallPtrSet.h"
 #include "llvm/IR/Function.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/IR/Instructions.h"
@@ -22,15 +20,17 @@ namespace cs565 {
     		std::set<std::string> use;
     		std::set<std::string> def;	
     		
+    		//iterate from last instruction to first in BB
     		for (BasicBlock::reverse_iterator inst = currentBlock->rbegin(), instEnd = currentBlock->rend(); inst != instEnd; inst++) {
 				
+				//save definitions
 				if (inst->hasName()) {
 					def.insert(inst->getName());
 					use.erase(inst->getName());
 				}
 				
+				//loop over operations to get variable uses
 				for(Instruction::op_iterator op = inst->op_begin(), ope = inst->op_end(); op != ope; op++) {
-					
 					if (dyn_cast<Instruction>(*op) || dyn_cast<Argument>(*op)) {
 						Value* define = op->get();
 						use.insert(define->getName());
@@ -46,15 +46,17 @@ namespace cs565 {
     	std::map<BasicBlock*, std::set<std::string>> inMap;
     	std::map<BasicBlock*, std::set<std::string>> outMap;
     	
+    	//Iterate over BB until fixed-point
     	bool isChanged = true;
-    	
     	while (isChanged) {
     		isChanged = false;
     		for (Function::iterator currentBlock = F.begin(), endBlock = F.end(); currentBlock != endBlock; currentBlock++) {
 			
+				//keep track of original sizes to see if anything has changed
 				int originalInCount = inMap[currentBlock].size();
 				int originalOutCount = outMap[currentBlock].size();
 			
+				//build OUT from successors
 				for (succ_iterator iterator = succ_begin(currentBlock), endSucc = succ_end(currentBlock); iterator != endSucc; iterator++) {
 				  	BasicBlock *succ = *iterator;
 				  	
@@ -62,6 +64,7 @@ namespace cs565 {
 				  	outMap[currentBlock].insert(succIn.begin(), succIn.end());
 				}
 			
+				//build IN set
 				std::set<std::string> inSet;
 			
 				std::set<std::string> diff;
@@ -74,16 +77,14 @@ namespace cs565 {
 			
 				inMap[currentBlock] = inSet;
 				
+				//check if anything has changed
 				int newInCount = inMap[currentBlock].size();
 				int newOutCount = outMap[currentBlock].size();
-				
 				if (newInCount != originalInCount || newOutCount != originalOutCount) {
 					isChanged = true;
 				}
 			}
     	}
-    	
-		
 		
 		//Print sets
     	for (Function::iterator currentBlock = F.begin(), endBlock = F.end(); currentBlock != endBlock; currentBlock++) {
